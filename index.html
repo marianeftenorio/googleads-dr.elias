@@ -241,6 +241,9 @@
             display: flex;
             gap: 0.5rem;
             z-index: 100;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 80%;
         }
 
         .progress-dot {
@@ -250,22 +253,12 @@
             background-color: rgba(10, 25, 47, 0.2);
             cursor: pointer;
             transition: all 0.3s ease;
+            margin-bottom: 5px;
         }
 
         .progress-dot.active {
             background-color: var(--primary);
             transform: scale(1.3);
-        }
-
-        /* Layout Helpers */
-        .flex-row {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-        
-        .flex-col {
-            flex: 1;
         }
 
         /* Responsive */
@@ -282,8 +275,8 @@
             }
             .slide {
                 padding: 4rem 5% 7rem; 
-                justify-content: flex-start; 
-                overflow-y: auto;
+                justify-content: flex-start; /* Evita sobreposição com logo */
+                overflow-y: auto; /* Fail-safe */
             }
             .logo-container {
                 top: 1rem;
@@ -354,50 +347,77 @@
 
         <!-- Slide 3: Fundo de Funil -->
         <div class="slide">
-            <div class="content-box flex-row" style="flex-wrap: wrap;">
-                <div class="flex-col">
-                    <h2 class="title">Fundo de Funil</h2>
-                    <h3 class="subtitle">Busca Direta por Especialista</h3>
-                    <p class="text-body">
-                        Nesta etapa, o lead já sabe que precisa de um advogado e está escolhendo o escritório ideal para o seu negócio.
-                    </p>
-                    <p class="text-body highlight" style="margin-top: 1rem;">Termos específicos trabalhados:</p>
-                    <ul>
-                        <li>"advogado tributarista em Maceió"</li>
-                        <li>"escritório de advocacia tributária"</li>
-                        <li>"especialista em direito tributário empresarial"</li>
-                        <li>"escritório de direito tributário" <span style="font-size: 0.8em; color: var(--secondary);">(Nova)</span></li>
-                        <li>"advogado área tributária" <span style="font-size: 0.8em; color: var(--secondary);">(Nova)</span></li>
-                    </ul>
-                </div>
+            <div class="content-box">
+                <h2 class="title">Fundo de Funil</h2>
+                <h3 class="subtitle">Busca Direta por Especialista</h3>
+                <p class="text-body">
+                    Nesta etapa, o lead já sabe que precisa de um advogado e está escolhendo o escritório ideal para o seu negócio.
+                </p>
+                <p class="text-body highlight" style="margin-top: 1rem;">Termos específicos trabalhados:</p>
+                <ul>
+                    <li>"advogado tributarista em Maceió"</li>
+                    <li>"escritório de advocacia tributária"</li>
+                    <li>"especialista em direito tributário empresarial"</li>
+                    <li>"escritório de direito tributário" <span style="font-size: 0.8em; color: var(--secondary);">(Nova)</span></li>
+                    <li>"advogado área tributária" <span style="font-size: 0.8em; color: var(--secondary);">(Nova)</span></li>
+                </ul>
             </div>
         </div>
 
-        <!-- Slide 4: Meio de Funil -->
+        <!-- Slide 4: Meio de Funil 1 -->
         <div class="slide">
             <div class="content-box">
-                <h2 class="title">Meio de Funil</h2>
+                <h2 class="title">Meio de Funil <span style="font-size: 0.6em; font-weight: 300;">(1/3)</span></h2>
                 <h3 class="subtitle">Busca por Soluções e Rentabilidade B2B</h3>
                 <p class="text-body">O lead tem um problema ou oportunidade e busca quem possa resolver.</p>
                 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
-                    <div style="background: var(--white); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                        <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;">Recuperação de Caixa</h4>
-                        <p style="font-size: 0.95rem; color: #555;">“restituição de créditos tributários”<br>“recuperar impostos pagos indevidamente”</p>
-                    </div>
-                    <div style="background: var(--white); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--secondary); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                        <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;">Defesa e Auditoria</h4>
-                        <p style="font-size: 0.95rem; color: #555; line-height: 1.4;">"defesa em autuação fiscal"<br>"auditoria fiscal preventiva"<br>"auditoria fiscal" <span style="font-size: 0.8em; color: var(--secondary);">(Nova)</span><br>"empresas de auditoria" <span style="font-size: 0.8em; color: var(--secondary);">(Nova)</span><br>"auditorias tributárias" <span style="font-size: 0.8em; color: var(--secondary);">(Nova)</span><br>"advogado para crime tributário"</p>
-                    </div>
-                    <div style="background: var(--white); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                        <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;">Planejamento</h4>
-                        <p style="font-size: 0.95rem; color: #555;">"consultoria em reforma tributária"<br>"planejamento tributário empresarial"</p>
-                    </div>
+                <div style="background: var(--white); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-top: 2rem;">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-family: 'Inter', sans-serif; font-size: 1.5rem;">Recuperação de Caixa</h4>
+                    <p style="font-size: 1.1rem; color: #555; line-height: 1.6;">
+                        • “restituição de créditos tributários”<br>
+                        • “recuperar impostos pagos indevidamente”
+                    </p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 5: Blindagem -->
+        <!-- Slide 5: Meio de Funil 2 -->
+        <div class="slide">
+            <div class="content-box">
+                <h2 class="title">Meio de Funil <span style="font-size: 0.6em; font-weight: 300;">(2/3)</span></h2>
+                <h3 class="subtitle">Busca por Soluções e Rentabilidade B2B</h3>
+                
+                <div style="background: var(--white); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--secondary); box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-top: 1rem;">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-family: 'Inter', sans-serif; font-size: 1.5rem;">Defesa e Auditoria</h4>
+                    <p style="font-size: 1.1rem; color: #555; line-height: 1.6;">
+                        • "defesa em autuação fiscal"<br>
+                        • "auditoria fiscal preventiva"<br>
+                        • "auditoria fiscal" <span style="font-size: 0.8em; color: var(--secondary);">(Nova)</span><br>
+                        • "empresas de auditoria" <span style="font-size: 0.8em; color: var(--secondary);">(Nova)</span><br>
+                        • "auditorias tributárias" <span style="font-size: 0.8em; color: var(--secondary);">(Nova)</span><br>
+                        • "advogado para crime tributário"
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Meio de Funil 3 -->
+        <div class="slide">
+            <div class="content-box">
+                <h2 class="title">Meio de Funil <span style="font-size: 0.6em; font-weight: 300;">(3/3)</span></h2>
+                <h3 class="subtitle">Busca por Soluções e Rentabilidade B2B</h3>
+                
+                <div style="background: var(--white); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-top: 1rem;">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-family: 'Inter', sans-serif; font-size: 1.5rem;">Planejamento</h4>
+                    <p style="font-size: 1.1rem; color: #555; line-height: 1.6;">
+                        • "consultoria em reforma tributária"<br>
+                        • "planejamento tributário empresarial"
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Blindagem -->
         <div class="slide">
             <div class="content-box">
                 <h2 class="title">Blindagem de Orçamento</h2>
@@ -405,61 +425,77 @@
                 <p class="text-body">
                     Para garantir que o orçamento seja investido apenas em leads B2B de alto ticket, implementamos uma lista rigorosa de <span class="highlight">Palavras-Chave Negativas</span>.
                 </p>
-                <p class="text-body">Se o usuário digitar qualquer termo abaixo, nosso anúncio não aparecerá:</p>
+                <p class="text-body">Se o usuário digitar qualquer termo dos próximos tópicos, nosso anúncio <strong>não aparecerá</strong>, salvando a verba.</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Lista de Bloqueio Detalhada -->
+        <div class="slide">
+            <div class="content-box">
+                <h2 class="title">Termos Bloqueados</h2>
+                <h3 class="subtitle">Onde não queremos aparecer</h3>
                 
-                <ul style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                    <li><strong>Curiosos/Estudantes:</strong><br><span style="font-size: 0.9rem; color: #777;">grátis, gratuito, faculdade, estágio, tcc, oab, curso, pdf.</span></li>
-                    <li><strong>PF e Baixa Renda:</strong><br><span style="font-size: 0.9rem; color: #777;">mei, simples nacional, pessoa física, pequenas causas, irpf.</span></li>
-                    <li><strong>Fora do Foco:</strong><br><span style="font-size: 0.9rem; color: #777;">trabalhista, criminal (comum), civil, cálculo, trânsito.</span></li>
+                <ul style="display: flex; flex-direction: column; gap: 1rem;">
+                    <li style="background: var(--white); padding: 1rem; border-radius: 8px; margin-bottom: 0;">
+                        <strong>Curiosos / Estudantes:</strong><br>
+                        <span style="font-size: 0.95rem; color: #777;">grátis, gratuito, faculdade, estágio, tcc, oab, curso, pdf.</span>
+                    </li>
+                    <li style="background: var(--white); padding: 1rem; border-radius: 8px; margin-bottom: 0;">
+                        <strong>PF e Baixa Renda:</strong><br>
+                        <span style="font-size: 0.95rem; color: #777;">mei, simples nacional, pessoa física, pequenas causas, irpf.</span>
+                    </li>
+                    <li style="background: var(--white); padding: 1rem; border-radius: 8px; margin-bottom: 0;">
+                        <strong>Fora do Foco:</strong><br>
+                        <span style="font-size: 0.95rem; color: #777;">trabalhista, criminal (comum), civil, cálculo, trânsito.</span>
+                    </li>
                 </ul>
             </div>
         </div>
         
-        <!-- Slide 6: Finanças -->
+        <!-- Slide 9: Finanças -->
         <div class="slide">
             <div class="content-box">
-                <h2 class="title">Estrutura Financeira Otimizada</h2>
+                <h2 class="title">Estrutura Financeira</h2>
+                <h3 class="subtitle">Custo otimizado para a região</h3>
                 <p class="text-body">
                     Com base nos dados reais extraídos do Planejador do Google, a estrutura financeira da campanha está validada. O custo de aquisição (CPC) apresenta-se altamente competitivo.
                 </p>
                 <p class="text-body">
-                    Substituímos termos genéricos por sugestões inovadoras e com alto volume de buscas fornecidas pelo algoritmo do Google, otimizando o ponto de equilíbrio dos lances no leilão.
+                    Substituímos termos genéricos por sugestões inovadoras e com alto volume de buscas fornecidas pelo algoritmo do Google, otimizando o ponto de equilíbrio dos lances.
                 </p>
             </div>
         </div>
 
-        <!-- Slide 7: Tabela -->
+        <!-- Slide 10: Tabela -->
         <div class="slide">
             <div class="content-box" style="max-width: 1100px;">
-                <h2 class="title" style="font-size: 2.2rem;">Investimento e Projeção</h2>
+                <h2 class="title" style="font-size: 1.8rem;">Investimento e Projeção</h2>
                 <div class="table-container">
-                    <table>
+                    <table style="font-size: 0.9rem;">
                         <thead>
                             <tr>
                                 <th>Palavra-Chave</th>
                                 <th>Etapa do Funil</th>
                                 <th>CPC (Médio)</th>
-                                <th>Cliques/Dia (Est.)</th>
+                                <th>Cliques (Est.)</th>
                                 <th>Orç. Diário</th>
-                                <th>Orç. Semanal (5 dias)</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>escritório de advocacia tributária</td><td>Fundo</td><td>R$ 10,00</td><td>5</td><td>R$ 50,00</td><td>R$ 250,00</td></tr>
-                            <tr><td>escritório de direito tributário (Nova)</td><td>Fundo</td><td>R$ 5,50</td><td>4</td><td>R$ 22,00</td><td>R$ 110,00</td></tr>
-                            <tr><td>advogado área tributária (Nova)</td><td>Fundo</td><td>R$ 12,00</td><td>4</td><td>R$ 48,00</td><td>R$ 240,00</td></tr>
-                            <tr><td>advogado tributarista em Maceió*</td><td>Fundo</td><td>R$ 12,00</td><td>3</td><td>R$ 36,00</td><td>R$ 180,00</td></tr>
-                            <tr><td>auditoria fiscal</td><td>Meio</td><td>R$ 4,50</td><td>10</td><td>R$ 45,00</td><td>R$ 225,00</td></tr>
-                            <tr><td>auditorias tributárias (Nova)</td><td>Meio</td><td>R$ 5,00</td><td>8</td><td>R$ 40,00</td><td>R$ 200,00</td></tr>
-                            <tr><td>empresas de auditoria (Nova)</td><td>Meio</td><td>R$ 12,50</td><td>3</td><td>R$ 37,50</td><td>R$ 187,50</td></tr>
-                            <tr><td>planejamento tributário empresarial</td><td>Meio</td><td>R$ 6,00**</td><td>2</td><td>R$ 12,00</td><td>R$ 60,00</td></tr>
-                            <tr><td>restituição de créditos tributários</td><td>Meio</td><td>R$ 6,00**</td><td>2</td><td>R$ 12,00</td><td>R$ 60,00</td></tr>
-                            <tr><td>defesa em autuação fiscal*</td><td>Meio</td><td>R$ 8,00**</td><td>2</td><td>R$ 16,00</td><td>R$ 80,00</td></tr>
+                            <tr><td>escritório de advocacia tributária</td><td>Fundo</td><td>R$ 10,00</td><td>5</td><td>R$ 50,00</td></tr>
+                            <tr><td>escritório de direito tributário</td><td>Fundo</td><td>R$ 5,50</td><td>4</td><td>R$ 22,00</td></tr>
+                            <tr><td>advogado área tributária</td><td>Fundo</td><td>R$ 12,00</td><td>4</td><td>R$ 48,00</td></tr>
+                            <tr><td>advogado tributarista em Maceió*</td><td>Fundo</td><td>R$ 12,00</td><td>3</td><td>R$ 36,00</td></tr>
+                            <tr><td>auditoria fiscal</td><td>Meio</td><td>R$ 4,50</td><td>10</td><td>R$ 45,00</td></tr>
+                            <tr><td>auditorias tributárias</td><td>Meio</td><td>R$ 5,00</td><td>8</td><td>R$ 40,00</td></tr>
+                            <tr><td>empresas de auditoria</td><td>Meio</td><td>R$ 12,50</td><td>3</td><td>R$ 37,50</td></tr>
+                            <tr><td>planejamento tributário empresarial</td><td>Meio</td><td>R$ 6,00**</td><td>2</td><td>R$ 12,00</td></tr>
+                            <tr><td>restituição de créditos tributários</td><td>Meio</td><td>R$ 6,00**</td><td>2</td><td>R$ 12,00</td></tr>
+                            <tr><td>defesa em autuação fiscal*</td><td>Meio</td><td>R$ 8,00**</td><td>2</td><td>R$ 16,00</td></tr>
                             <tr class="table-total">
                                 <td colspan="3" style="text-align: right;">TOTAL ESTIMADO</td>
                                 <td>43</td>
-                                <td>R$ 318,50</td>
-                                <td>R$ 1.592,50</td>
+                                <td>R$ 318,50/dia</td>
                             </tr>
                         </tbody>
                     </table>
@@ -467,21 +503,21 @@
             </div>
         </div>
 
-        <!-- Slide 8: Conclusão -->
+        <!-- Slide 11: Conclusão -->
         <div class="slide">
             <div class="content-box">
                 <h2 class="title">Leitura de Performance</h2>
                 <h3 class="subtitle">Estratégia de Captação Híbrida</h3>
-                <div style="background: var(--white); padding: 2rem; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 1.5rem;">
-                    <p class="text-body" style="margin-bottom: 1rem;">
-                        A palavra <strong>"auditoria fiscal"</strong> puxa bastante tráfego (projetado para 10 cliques diários) por um custo muito baixo (R$ 4,50). 
-                        Essa será a palavra-chave responsável pela atração e volume da campanha.
+                <div style="background: var(--white); padding: 2rem; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 1rem;">
+                    <p class="text-body" style="margin-bottom: 1rem; font-size: 1.1rem;">
+                        A palavra <strong>"auditoria fiscal"</strong> puxa bastante tráfego (10 cliques diários est.) por um custo baixo (R$ 4,50). 
+                        Será a palavra-chave responsável pela atração.
                     </p>
-                    <p class="text-body" style="margin-bottom: 1rem;">
-                        Enquanto isso, os termos focados em <strong>"escritório de..."</strong> garantirão a conversão no fundo do funil, focando no lead de alta intenção.
+                    <p class="text-body" style="margin-bottom: 1rem; font-size: 1.1rem;">
+                        Os termos focados em <strong>"escritório de..."</strong> garantirão a conversão focando no lead de alta intenção B2B.
                     </p>
-                    <p class="text-body highlight" style="font-size: 1.4rem;">
-                        Com um investimento semanal de ~R$ 1.600,00, a campanha tem fôlego para rodar de forma consistente e captar excelentes leads B2B de segunda a sexta.
+                    <p class="text-body highlight" style="font-size: 1.25rem;">
+                        Com R$ 1.592,50 semanais, a campanha rodará consistentemente captando leads de segunda a sexta.
                     </p>
                 </div>
             </div>
