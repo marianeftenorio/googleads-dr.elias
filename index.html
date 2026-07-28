@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano Estratégico de Captação B2B: Dr. Elias Soares</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A192F; /* Navy Blue */
+            --secondary: #BFA15F; /* Gold */
+            --text-dark: #333333;
+            --text-light: #F5F5F5;
+            --bg-light: #FAFAFA;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow: hidden; /* Prevent scrolling, controlled via JS */
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+        }
+
+        /* Presentation Container */
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Slides */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 10%;
+            background-color: var(--bg-light);
+            z-index: 1;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 10;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        /* Logo */
+        .logo-container {
+            position: absolute;
+            top: 2rem;
+            left: 3rem;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            height: 60px;
+            object-fit: contain;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.1));
+        }
+
+        /* Content Styling */
+        .content-box {
+            max-width: 1000px;
+            width: 100%;
+            text-align: left;
+            position: relative;
+        }
+
+        .slide-capa .content-box {
+            text-align: center;
+        }
+
+        .title {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: var(--secondary);
+            line-height: 1.5;
+        }
+
+        .text-body {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Lists */
+        ul {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        ul li {
+            font-size: 1.15rem;
+            margin-bottom: 1.2rem;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-dark);
+        }
+
+        ul li::before {
+            content: "•";
+            color: var(--secondary);
+            font-size: 2rem;
+            position: absolute;
+            left: 0;
+            top: -10px;
+        }
+
+        /* Table */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--white);
+            color: var(--text-dark);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: var(--secondary);
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table-total {
+            background-color: var(--secondary);
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .table-total td {
+            border-bottom: none;
+        }
+
+        /* Navigation Arrows */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(10, 25, 47, 0.2);
+            color: var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-50%) scale(1.1);
+            border-color: var(--primary);
+        }
+
+        .nav-prev {
+            left: 2rem;
+        }
+
+        .nav-next {
+            right: 2rem;
+        }
+
+        .nav-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 100;
+        }
+
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(10, 25, 47, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background-color: var(--primary);
+            transform: scale(1.3);
+        }
+
+        /* Layout Helpers */
+        .flex-row {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .flex-col {
+            flex: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            .text-body, ul li {
+                font-size: 1rem;
+            }
+            .slide {
+                padding: 6rem 5% 4rem; /* More padding top for logo, less side padding */
+            }
+            .logo-container {
+                top: 1rem;
+                left: 1rem;
+            }
+            .logo {
+                height: 40px;
+            }
+            .nav-btn {
+                width: 40px;
+                height: 40px;
+                bottom: 1rem;
+                top: auto;
+                transform: none;
+                background: rgba(0, 0, 0, 0.05);
+            }
+            .nav-prev {
+                left: 1rem;
+            }
+            .nav-next {
+                right: 1rem;
+            }
+            .nav-btn:hover {
+                transform: scale(1.1);
+            }
+            .table-container {
+                font-size: 0.8rem;
+            }
+            th, td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo-container">
+        <!-- Logo Image -->
+        <img src="ES_transparent.png" alt="Logo Dr. Elias Soares" class="logo" onerror="this.src='ES - AZUL E PRATA .png'; this.onerror=null;">
+    </div>
+
+    <div class="presentation" id="presentation">
+        
+        <!-- Slide 1: Capa -->
+        <div class="slide slide-capa active">
+            <div class="content-box">
+                <h1 class="title">Plano Estratégico de Captação B2B</h1>
+                <h2 class="subtitle">Dr. Elias Soares | Advocacia Tributária</h2>
+                <p class="text-body" style="margin-top: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    <strong>Objetivo Central:</strong> Posicionar o escritório como principal referência em soluções tributárias de alto padrão, captando leads de negócios (B2B) e blindando o orçamento de marketing contra cliques curiosos ou desqualificados.
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Mapeamento -->
+        <div class="slide">
+            <div class="content-box">
+                <h2 class="title">Mapeamento Estratégico de Palavras-Chave</h2>
+                <h3 class="subtitle">Como seremos encontrados pelos clientes ideais</h3>
+                <p class="text-body">
+                    A campanha foi estruturada no modelo <span class="highlight">STAG (Grupos de Tema Único)</span>, garantindo que o anúncio seja uma resposta exata para o que o empresário digitou. 
+                </p>
+                <p class="text-body">
+                    Dividimos as buscas nos seguintes cenários estratégicos para maximizar a conversão:
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Fundo de Funil -->
+        <div class="slide">
+            <div class="content-box flex-row" style="flex-wrap: wrap;">
+                <div class="flex-col">
+                    <h2 class="title">Fundo de Funil</h2>
+                    <h3 class="subtitle">Busca Direta por Especialista</h3>
+                    <p class="text-body">
+                        Nesta etapa, o lead já sabe que precisa de um advogado e está escolhendo o escritório ideal para o seu negócio.
+                    </p>
+                    <p class="text-body highlight" style="margin-top: 1rem;">Termos específicos trabalhados:</p>
+                    <ul>
+                        <li>"advogado tributarista em Maceió"</li>
+                        <li>"escritório de advocacia tributária"</li>
+                        <li>"especialista em direito tributário empresarial"</li>
+                        <li>"escritório de direito tributário" <span style="font-size: 0.8em; color: var(--secondary);">(Nova)</span></li>
+                        <li>"advogado área tributária" <span style="font-size: 0.8em; color: var(--secondary);">(Nova)</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Meio de Funil -->
+        <div class="slide">
+            <div class="content-box">
+                <h2 class="title">Meio de Funil</h2>
+                <h3 class="subtitle">Busca por Soluções e Rentabilidade B2B</h3>
+                <p class="text-body">O lead tem um problema ou oportunidade e busca quem possa resolver.</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                    <div style="background: var(--white); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                        <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;">Recuperação de Caixa</h4>
+                        <p style="font-size: 0.95rem; color: #555;">“restituição de créditos tributários”<br>“recuperar impostos pagos indevidamente”</p>
+                    </div>
+                    <div style="background: var(--white); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--secondary); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                        <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;">Defesa e Auditoria</h4>
+                        <p style="font-size: 0.95rem; color: #555; line-height: 1.4;">"defesa em autuação fiscal"<br>"auditoria fiscal preventiva"<br>"auditoria fiscal" <span style="font-size: 0.8em; color: var(--secondary);">(Nova)</span><br>"empresas de auditoria" <span style="font-size: 0.8em; color: var(--secondary);">(Nova)</span><br>"auditorias tributárias" <span style="font-size: 0.8em; color: var(--secondary);">(Nova)</span><br>"advogado para crime tributário"</p>
+                    </div>
+                    <div style="background: var(--white); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                        <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;">Planejamento</h4>
+                        <p style="font-size: 0.95rem; color: #555;">"consultoria em reforma tributária"<br>"planejamento tributário empresarial"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Blindagem -->
+        <div class="slide">
+            <div class="content-box">
+                <h2 class="title">Blindagem de Orçamento</h2>
+                <h3 class="subtitle">A Lista de Bloqueio</h3>
+                <p class="text-body">
+                    Para garantir que o orçamento seja investido apenas em leads B2B de alto ticket, implementamos uma lista rigorosa de <span class="highlight">Palavras-Chave Negativas</span>.
+                </p>
+                <p class="text-body">Se o usuário digitar qualquer termo abaixo, nosso anúncio não aparecerá:</p>
+                
+                <ul style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                    <li><strong>Curiosos/Estudantes:</strong><br><span style="font-size: 0.9rem; color: #777;">grátis, gratuito, faculdade, estágio, tcc, oab, curso, pdf.</span></li>
+                    <li><strong>PF e Baixa Renda:</strong><br><span style="font-size: 0.9rem; color: #777;">mei, simples nacional, pessoa física, pequenas causas, irpf.</span></li>
+                    <li><strong>Fora do Foco:</strong><br><span style="font-size: 0.9rem; color: #777;">trabalhista, criminal (comum), civil, cálculo, trânsito.</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Slide 6: Finanças -->
+        <div class="slide">
+            <div class="content-box">
+                <h2 class="title">Estrutura Financeira Otimizada</h2>
+                <p class="text-body">
+                    Com base nos dados reais extraídos do Planejador do Google, a estrutura financeira da campanha está validada. O custo de aquisição (CPC) apresenta-se altamente competitivo.
+                </p>
+                <p class="text-body">
+                    Substituímos termos genéricos por sugestões inovadoras e com alto volume de buscas fornecidas pelo algoritmo do Google, otimizando o ponto de equilíbrio dos lances no leilão.
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Tabela -->
+        <div class="slide">
+            <div class="content-box" style="max-width: 1100px;">
+                <h2 class="title" style="font-size: 2.2rem;">Investimento e Projeção</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Palavra-Chave</th>
+                                <th>Etapa do Funil</th>
+                                <th>CPC (Médio)</th>
+                                <th>Cliques/Dia (Est.)</th>
+                                <th>Orç. Diário</th>
+                                <th>Orç. Semanal (5 dias)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>escritório de advocacia tributária</td><td>Fundo</td><td>R$ 10,00</td><td>5</td><td>R$ 50,00</td><td>R$ 250,00</td></tr>
+                            <tr><td>escritório de direito tributário (Nova)</td><td>Fundo</td><td>R$ 5,50</td><td>4</td><td>R$ 22,00</td><td>R$ 110,00</td></tr>
+                            <tr><td>advogado área tributária (Nova)</td><td>Fundo</td><td>R$ 12,00</td><td>4</td><td>R$ 48,00</td><td>R$ 240,00</td></tr>
+                            <tr><td>advogado tributarista em Maceió*</td><td>Fundo</td><td>R$ 12,00</td><td>3</td><td>R$ 36,00</td><td>R$ 180,00</td></tr>
+                            <tr><td>auditoria fiscal</td><td>Meio</td><td>R$ 4,50</td><td>10</td><td>R$ 45,00</td><td>R$ 225,00</td></tr>
+                            <tr><td>auditorias tributárias (Nova)</td><td>Meio</td><td>R$ 5,00</td><td>8</td><td>R$ 40,00</td><td>R$ 200,00</td></tr>
+                            <tr><td>empresas de auditoria (Nova)</td><td>Meio</td><td>R$ 12,50</td><td>3</td><td>R$ 37,50</td><td>R$ 187,50</td></tr>
+                            <tr><td>planejamento tributário empresarial</td><td>Meio</td><td>R$ 6,00**</td><td>2</td><td>R$ 12,00</td><td>R$ 60,00</td></tr>
+                            <tr><td>restituição de créditos tributários</td><td>Meio</td><td>R$ 6,00**</td><td>2</td><td>R$ 12,00</td><td>R$ 60,00</td></tr>
+                            <tr><td>defesa em autuação fiscal*</td><td>Meio</td><td>R$ 8,00**</td><td>2</td><td>R$ 16,00</td><td>R$ 80,00</td></tr>
+                            <tr class="table-total">
+                                <td colspan="3" style="text-align: right;">TOTAL ESTIMADO</td>
+                                <td>43</td>
+                                <td>R$ 318,50</td>
+                                <td>R$ 1.592,50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Conclusão -->
+        <div class="slide">
+            <div class="content-box">
+                <h2 class="title">Leitura de Performance</h2>
+                <h3 class="subtitle">Estratégia de Captação Híbrida</h3>
+                <div style="background: var(--white); padding: 2rem; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 1.5rem;">
+                    <p class="text-body" style="margin-bottom: 1rem;">
+                        A palavra <strong>"auditoria fiscal"</strong> puxa bastante tráfego (projetado para 10 cliques diários) por um custo muito baixo (R$ 4,50). 
+                        Essa será a palavra-chave responsável pela atração e volume da campanha.
+                    </p>
+                    <p class="text-body" style="margin-bottom: 1rem;">
+                        Enquanto isso, os termos focados em <strong>"escritório de..."</strong> garantirão a conversão no fundo do funil, focando no lead de alta intenção.
+                    </p>
+                    <p class="text-body highlight" style="font-size: 1.4rem;">
+                        Com um investimento semanal de ~R$ 1.600,00, a campanha tem fôlego para rodar de forma consistente e captar excelentes leads B2B de segunda a sexta.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <button class="nav-btn nav-prev" onclick="changeSlide(-1)" aria-label="Slide anterior">
+        <svg viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
+    </button>
+    <button class="nav-btn nav-next" onclick="changeSlide(1)" aria-label="Próximo slide">
+        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+    </button>
+
+    <!-- Indicators -->
+    <div class="progress-container" id="progress-container">
+        <!-- Dots generated by JS -->
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const progressContainer = document.getElementById('progress-container');
+
+        // Create dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('progress-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.onclick = () => goToSlide(index);
+            progressContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.progress-dot');
+
+        function updateNav() {
+            slides.forEach((slide, index) => {
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                    dots[index].classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                    dots[index].classList.remove('active');
+                }
+            });
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = slides.length - 1;
+            if (currentSlide >= slides.length) currentSlide = 0;
+            updateNav();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateNav();
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+        
+        // Initial setup for buttons
+        updateNav();
+    </script>
+</body>
+</html>
